@@ -13,12 +13,12 @@ main:
             target_url: "https://github.com/otw128/toolsfromai.git"
             auth_type: "https" # 或 "https"
             #ssh_key: "${SSH_KEY}" # 如果使用 SSH
-            username: "${GITHUB_UN_2}" # 如果使用 HTTPS
+            username: "${GITHUB_USERNAME}" # 如果使用 HTTPS
             password: "${syncCodeForOTW128}" # 如果使用 HTTPS
             branch: "main" # 可选，指定要推送的分支
             force: true # 可选，是否强制推送
             push_tags: true # 可选，是否推送标签
-            git_user: "${GITHUB_UN_2}" # 可选，设置 git user.name
+            git_user: "${GITHUB_USERNAME}" # 可选，设置 git user.name
             git_email: "${GITHUB_EMAIL_ADDR}" # 可选，设置 git user.email
             #git_host: "git.example.com" # 可选，如果使用自定义 Git 服务器
         - name: send msg to feishu
