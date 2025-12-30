@@ -36,12 +36,14 @@ class TextAnalyzer:
     
     def _count_sentences(self, text):
         """Count the number of sentences in text"""
+        if not text.strip():
+            return 0
         sentence_endings = ['.', '!', '?']
         count = 0
         for char in text:
             if char in sentence_endings:
                 count += 1
-        return max(count, 1)  # At least 1 sentence
+        return max(count, 1)  # At least 1 sentence if text is non-empty
     
     def _average_word_length(self, text):
         """Calculate average word length"""

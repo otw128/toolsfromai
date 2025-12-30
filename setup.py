@@ -18,7 +18,5 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.7",
-    install_requires=[
-        "requests>=2.25.0",
-    ],
+    install_requires=[],
 )

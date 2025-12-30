@@ -31,7 +31,7 @@ class FileProcessor:
             raise FileNotFoundError(f"File not found: {filepath}")
         
         with open(filepath, 'r', encoding='utf-8') as f:
-            return len(f.readlines())
+            return sum(1 for line in f)
     
     def get_file_info(self, filepath):
         """
