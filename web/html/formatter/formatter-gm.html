@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple HTML Formatter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #1e1e1e;
+            --text-color: #d4d4d4;
+            --accent-color: #007acc;
+            --secondary-bg: #252526;
+            --border-color: #3c3c3c;
+            --success-color: #4caf50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: var(--secondary-bg);
+            padding: 10px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        h1 { margin: 0; font-size: 1.2rem; font-weight: 500; }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: var(--bg-color);
+        }
+
+        button, select {
+            padding: 8px 16px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        button:hover { background-color: #005f9e; }
+        
+        button.secondary { background-color: var(--secondary-bg); border: 1px solid var(--border-color); }
+        button.secondary:hover { background-color: var(--border-color); }
+
+        .editor-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .pane:last-child { border-right: none; }
+
+        .pane-header {
+            background-color: var(--secondary-bg);
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            font-weight: bold;
+        }
+
+        textarea {
+            flex: 1;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: none;
+            resize: none;
+            padding: 15px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            outline: none;
+        }
+
+        textarea::placeholder { color: #555; }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>HTML Formatter</h1>
+    </header>
+
+    <div class="controls">
+        <button onclick="formatHTML()">Format HTML</button>
+        <button class="secondary" onclick="minifyHTML()">Minify (Compress)</button>
+        <button class="secondary" onclick="copyOutput()">Copy Output</button>
+        <button class="secondary" onclick="clearAll()">Clear</button>
+        
+        <select id="indent-size">
+            <option value="2">Indent: 2 Spaces</option>
+            <option value="4" selected>Indent: 4 Spaces</option>
+            <option value="tab">Indent: Tab</option>
+        </select>
+    </div>
+
+    <div class="editor-container">
+        <div class="pane">
+            <div class="pane-header">Input (Messy HTML)</div>
+            <textarea id="input" placeholder="Paste your raw HTML here..."></textarea>
+        </div>
+        <div class="pane">
+            <div class="pane-header">Output (Formatted)</div>
+            <textarea id="output" readonly placeholder="Formatted result will appear here..."></textarea>
+        </div>
+    </div>
+
+    <script>
+        // Main function to format HTML
+        function formatHTML() {
+            const input = document.getElementById('input').value;
+            const indentSize = document.getElementById('indent-size').value;
+            
+            // Configuration for the formatter
+            const options = {
+                indent_size: indentSize === 'tab' ? 1 : parseInt(indentSize),
+                indent_char: indentSize === 'tab' ? '\t' : ' ',
+                max_preserve_newlines: 1,
+                preserve_newlines: true,
+                keep_array_indentation: false,
+                break_chained_methods: false,
+                indent_scripts: 'normal',
+                brace_style: 'collapse',
+                space_before_conditional: true,
+                unescape_strings: false,
+                jslint_happy: false,
+                end_with_newline: false,
+                wrap_line_length: 0,
+                indent_inner_html: false,
+                comma_first: false,
+                e4x: false,
+                indent_empty_lines: false
+            };
+
+            // Using the loaded library to format
+            if (window.html_beautify) {
+                const formatted = html_beautify(input, options);
+                document.getElementById('output').value = formatted;
+            } else {
+                alert("Error: Formatter library not loaded. Check your internet connection.");
+            }
+        }
+
+        // Simple function to minify (remove extra whitespace)
+        function minifyHTML() {
+            const input = document.getElementById('input').value;
+            // Basic minification regex (removes newlines and multiple spaces)
+            const minified = input
+                .replace(/\n/g, "")
+                .replace(/[\t ]+\</g, "<")
+                .replace(/\>[\t ]+\</g, "><")
+                .replace(/\>[\t ]+$/g, ">");
+            
+            document.getElementById('output').value = minified;
+        }
+
+        function copyOutput() {
+            const output = document.getElementById('output');
+            output.select();
+            document.execCommand('copy');
+            
+            // Visual feedback
+            const originalText = output.previousElementSibling.innerText;
+            output.previousElementSibling.innerText = "COPIED TO CLIPBOARD!";
+            output.previousElementSibling.style.color = "var(--success-color)";
+            
+            setTimeout(() => {
+                output.previousElementSibling.innerText = originalText;
+                output.previousElementSibling.style.color = "#888";
+            }, 2000);
+        }
+
+        function clearAll() {
+            document.getElementById('input').value = '';
+            document.getElementById('output').value = '';
+        }
+    </script>
+</body>
+</html>

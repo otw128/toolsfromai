@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Source Code Formatter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #4cc9f0;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .input-section, .output-section {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4cc9f0;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: #4cc9f0;
+        }
+        
+        .code-container {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .code-header {
+            background-color: #0f3460;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-header h3 {
+            font-size: 1.2rem;
+        }
+        
+        .code-area {
+            width: 100%;
+            height: 500px;
+            padding: 20px;
+            background-color: #16213e;
+            color: #e0e0e0;
+            border: none;
+            resize: none;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 15px;
+            line-height: 1.5;
+            tab-size: 2;
+        }
+        
+        .code-area:focus {
+            outline: 2px solid #4cc9f0;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .format-btn {
+            background: linear-gradient(to right, #4361ee, #4cc9f0);
+            color: white;
+        }
+        
+        .format-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(67, 97, 238, 0.4);
+        }
+        
+        .clear-btn {
+            background: linear-gradient(to right, #f72585, #b5179e);
+            color: white;
+        }
+        
+        .clear-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(247, 37, 133, 0.4);
+        }
+        
+        .copy-btn {
+            background: linear-gradient(to right, #2a9d8f, #4cc9f0);
+            color: white;
+        }
+        
+        .copy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(42, 157, 143, 0.4);
+        }
+        
+        .options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .option-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #0f3460;
+            padding: 12px 20px;
+            border-radius: 8px;
+        }
+        
+        input[type="number"] {
+            width: 70px;
+            padding: 8px;
+            background-color: #16213e;
+            border: 1px solid #4cc9f0;
+            border-radius: 4px;
+            color: white;
+            text-align: center;
+        }
+        
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #4cc9f0;
+        }
+        
+        .formatted-output {
+            position: relative;
+        }
+        
+        .copy-notification {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #2a9d8f;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .copy-notification.show {
+            opacity: 1;
+        }
+        
+        .syntax-html { color: #f72585; }
+        .syntax-tag { color: #4cc9f0; }
+        .syntax-attr { color: #f7b731; }
+        .syntax-value { color: #2a9d8f; }
+        .syntax-comment { color: #6c757d; font-style: italic; }
+        .syntax-doctype { color: #7209b7; }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #0f3460;
+            color: #8a8a8a;
+            font-size: 0.9rem;
+        }
+        
+        .example-html {
+            margin-top: 30px;
+            background-color: #0f3460;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .example-html h3 {
+            margin-bottom: 15px;
+            color: #4cc9f0;
+        }
+        
+        .example-btn {
+            background-color: #16213e;
+            color: #4cc9f0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid #4cc9f0;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .example-btn:hover {
+            background-color: #4cc9f0;
+            color: #16213e;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .code-area {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-code"></i> HTML Source Code Formatter</h1>
+            <p class="subtitle">Paste your HTML code in the input area, customize formatting options, and get beautifully formatted, syntax-highlighted HTML code.</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="input-section">
+                <div class="section-title">
+                    <i class="fas fa-keyboard"></i>
+                    <h2>Input HTML Code</h2>
+                </div>
+                <div class="code-container">
+                    <div class="code-header">
+                        <h3>Paste your unformatted HTML here</h3>
+                        <div class="char-count">Characters: <span id="input-count">0</span></div>
+                    </div>
+                    <textarea id="html-input" class="code-area" placeholder="Paste your HTML code here..."></textarea>
+                </div>
+            </div>
+            
+            <div class="output-section">
+                <div class="section-title">
+                    <i class="fas fa-eye"></i>
+                    <h2>Formatted Output</h2>
+                </div>
+                <div class="code-container formatted-output">
+                    <div class="code-header">
+                        <h3>Formatted HTML with syntax highlighting</h3>
+                        <div class="char-count">Characters: <span id="output-count">0</span></div>
+                    </div>
+                    <pre id="html-output" class="code-area"></pre>
+                    <div class="copy-notification" id="copy-notification">Code copied to clipboard!</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="options">
+            <div class="option-group">
+                <label for="indent-size"><i class="fas fa-indent"></i> Indent Size:</label>
+                <input type="number" id="indent-size" min="1" max="8" value="2">
+            </div>
+            
+            <div class="option-group">
+                <label for="attribute-quotes"><i class="fas fa-quote-right"></i> Use Double Quotes:</label>
+                <input type="checkbox" id="attribute-quotes" checked>
+            </div>
+            
+            <div class="option-group">
+                <label for="wrap-attributes"><i class="fas fa-text-width"></i> Wrap Long Attributes:</label>
+                <input type="checkbox" id="wrap-attributes">
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="format-btn" id="format-btn">
+                <i class="fas fa-magic"></i> Format HTML
+            </button>
+            <button class="clear-btn" id="clear-btn">
+                <i class="fas fa-broom"></i> Clear All
+            </button>
+            <button class="copy-btn" id="copy-btn">
+                <i class="far fa-copy"></i> Copy Formatted Code
+            </button>
+        </div>
+        
+        <div class="example-html">
+            <h3><i class="fas fa-lightbulb"></i> Try an example</h3>
+            <p>Click the button below to load an example HTML snippet and see how the formatter works.</p>
+            <button class="example-btn" id="example-btn">Load Example HTML</button>
+        </div>
+        
+        <footer>
+            <p>HTML Source Code Formatter &copy; 2023 | Created with HTML, CSS & JavaScript</p>
+            <p>This tool formats and beautifies your HTML code for better readability.</p>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const htmlInput = document.getElementById('html-input');
+        const htmlOutput = document.getElementById('html-output');
+        const formatBtn = document.getElementById('format-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const exampleBtn = document.getElementById('example-btn');
+        const inputCount = document.getElementById('input-count');
+        const outputCount = document.getElementById('output-count');
+        const copyNotification = document.getElementById('copy-notification');
+        const indentSizeInput = document.getElementById('indent-size');
+        const attributeQuotesCheck = document.getElementById('attribute-quotes');
+        const wrapAttributesCheck = document.getElementById('wrap-attributes');
+        
+        // Update character count
+        function updateCharCount() {
+            const inputText = htmlInput.value;
+            inputCount.textContent = inputText.length;
+            
+            const outputText = htmlOutput.textContent;
+            outputCount.textContent = outputText.length;
+        }
+        
+        // Format HTML function
+        function formatHTML(html, indentSize, useDoubleQuotes, wrapAttributes) {
+            // Remove extra whitespace
+            html = html.trim().replace(/\s+/g, ' ');
+            
+            let formatted = '';
+            let indent = 0;
+            let inTag = false;
+            let inAttribute = false;
+            let quoteChar = '';
+            let tagBuffer = '';
+            let isClosingTag = false;
+            let isSelfClosing = false;
+            let inComment = false;
+            let inDoctype = false;
+            
+            for (let i = 0; i < html.length; i++) {
+                const char = html[i];
+                const nextChar = html[i + 1] || '';
+                
+                // Handle DOCTYPE
+                if (html.substr(i, 9).toUpperCase() === '<!DOCTYPE') {
+                    inDoctype = true;
+                }
+                
+                // Handle comments
+                if (html.substr(i, 4) === '<!--') {
+                    inComment = true;
+                }
+                
+                if (inDoctype) {
+                    tagBuffer += char;
+                    if (char === '>') {
+                        inDoctype = false;
+                        formatted += ' '.repeat(indent * indentSize) + tagBuffer + '\n';
+                        tagBuffer = '';
+                    }
+                    continue;
+                }
+                
+                if (inComment) {
+                    tagBuffer += char;
+                    if (html.substr(i - 2, 3) === '-->') {
+                        inComment = false;
+                        formatted += ' '.repeat(indent * indentSize) + tagBuffer + '\n';
+                        tagBuffer = '';
+                    }
+                    continue;
+                }
+                
+                // Handle tags
+                if (char === '<' && !inAttribute && !inComment) {
+                    // If we have text content before the tag
+                    if (tagBuffer.trim()) {
+                        formatted += ' '.repeat(indent * indentSize) + tagBuffer.trim() + '\n';
+                        tagBuffer = '';
+                    }
+                    
+                    inTag = true;
+                    isClosingTag = nextChar === '/';
+                    tagBuffer += char;
+                    continue;
+                }
+                
+                if (char === '>' && !inAttribute && !inComment) {
+                    tagBuffer += char;
+                    inTag = false;
+                    
+                    // Check if it's a self-closing tag
+                    isSelfClosing = tagBuffer.includes('/>') || 
+                                    ['meta', 'link', 'img', 'br', 'hr', 'input'].includes(
+                                        tagBuffer.replace(/[<\/>]/g, '').split(' ')[0].toLowerCase()
+                                    );
+                    
+                    // Add appropriate indentation
+                    if (isClosingTag) {
+                        indent = Math.max(0, indent - 1);
+                    }
+                    
+                    formatted += ' '.repeat(indent * indentSize) + tagBuffer + '\n';
+                    
+                    if (!isClosingTag && !isSelfClosing) {
+                        indent++;
+                    }
+                    
+                    tagBuffer = '';
+                    isClosingTag = false;
+                    continue;
+                }
+                
+                // Handle attributes and quotes
+                if (inTag && !inComment) {
+                    if ((char === '"' || char === "'") && !inAttribute) {
+                        inAttribute = true;
+                        quoteChar = char;
+                    } else if (inAttribute && char === quoteChar) {
+                        inAttribute = false;
+                    }
+                    
+                    // Apply quote preference
+                    if (useDoubleQuotes && char === "'" && inAttribute && quoteChar === "'") {
+                        tagBuffer += '"';
+                        continue;
+                    } else if (!useDoubleQuotes && char === '"' && inAttribute && quoteChar === '"') {
+                        tagBuffer += "'";
+                        continue;
+                    }
+                    
+                    // Handle attribute wrapping
+                    if (wrapAttributes && inTag && !inAttribute && char === ' ' && 
+                        tagBuffer.length > 80 && html[i+1] && html[i+1] !== '>') {
+                        tagBuffer += '\n' + ' '.repeat((indent * indentSize) + indentSize);
+                        continue;
+                    }
+                }
+                
+                tagBuffer += char;
+            }
+            
+            // Add any remaining text
+            if (tagBuffer.trim()) {
+                formatted += ' '.repeat(indent * indentSize) + tagBuffer.trim();
+            }
+            
+            return formatted.trim();
+        }
+        
+        // Apply syntax highlighting
+        function applySyntaxHighlighting(formattedHTML) {
+            // Replace special HTML characters
+            formattedHTML = formattedHTML.replace(/&/g, '&amp;')
+                                         .replace(/</g, '&lt;')
+                                         .replace(/>/g, '&gt;')
+                                         .replace(/"/g, '&quot;')
+                                         .replace(/'/g, '&#039;');
+            
+            // Apply syntax highlighting
+            formattedHTML = formattedHTML.replace(/&lt;!DOCTYPE.*?&gt;/g, '<span class="syntax-doctype">$&</span>');
+            formattedHTML = formattedHTML.replace(/&lt;!--.*?--&gt;/g, '<span class="syntax-comment">$&</span>');
+            formattedHTML = formattedHTML.replace(/&lt;(\/?)([a-zA-Z][a-zA-Z0-9]*)/g, '&lt;$1<span class="syntax-tag">$2</span>');
+            formattedHTML = formattedHTML.replace(/([a-zA-Z-]+)=/g, '<span class="syntax-attr">$1</span>=');
+            formattedHTML = formattedHTML.replace(/=(".*?"|'.*?')/g, '=<span class="syntax-value">$1</span>');
+            formattedHTML = formattedHTML.replace(/&lt;\/[a-zA-Z][a-zA-Z0-9]*&gt;/g, '<span class="syntax-html">$&</span>');
+            formattedHTML = formattedHTML.replace(/&lt;[a-zA-Z][a-zA-Z0-9]*/g, '<span class="syntax-html">$&</span>');
+            formattedHTML = formattedHTML.replace(/&gt;/g, '<span class="syntax-html">$&</span>');
+            
+            return formattedHTML;
+        }
+        
+        // Format button click handler
+        formatBtn.addEventListener('click', () => {
+            const html = htmlInput.value;
+            if (!html.trim()) {
+                htmlOutput.textContent = 'Please enter some HTML code to format.';
+                updateCharCount();
+                return;
+            }
+            
+            const indentSize = parseInt(indentSizeInput.value);
+            const useDoubleQuotes = attributeQuotesCheck.checked;
+            const wrapAttributes = wrapAttributesCheck.checked;
+            
+            const formatted = formatHTML(html, indentSize, useDoubleQuotes, wrapAttributes);
+            const highlighted = applySyntaxHighlighting(formatted);
+            
+            htmlOutput.innerHTML = highlighted;
+            updateCharCount();
+        });
+        
+        // Clear button click handler
+        clearBtn.addEventListener('click', () => {
+            htmlInput.value = '';
+            htmlOutput.textContent = '';
+            updateCharCount();
+        });
+        
+        // Copy button click handler
+        copyBtn.addEventListener('click', () => {
+            const textToCopy = htmlOutput.textContent;
+            
+            if (!textToCopy.trim()) {
+                copyNotification.textContent = 'No formatted code to copy!';
+                copyNotification.classList.add('show');
+                setTimeout(() => {
+                    copyNotification.classList.remove('show');
+                }, 2000);
+                return;
+            }
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                copyNotification.textContent = 'Code copied to clipboard!';
+                copyNotification.classList.add('show');
+                setTimeout(() => {
+                    copyNotification.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                copyNotification.textContent = 'Failed to copy code!';
+                copyNotification.classList.add('show');
+                setTimeout(() => {
+                    copyNotification.classList.remove('show');
+                }, 2000);
+            });
+        });
+        
+        // Example button click handler
+        exampleBtn.addEventListener('click', () => {
+            const exampleHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1>Welcome to My Website</h1>
+        <nav>
+            <ul class="nav-list">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="home">
+            <h2>Home Section</h2>
+            <p>This is a paragraph with <strong>bold text</strong> and <em>italic text</em>.</p>
+            <div class="container">
+                <button id="myButton" onclick="handleClick()" class="btn-primary">Click Me</button>
+            </div>
+        </section>
+        <!-- This is a comment -->
+        <section id="about">
+            <h2>About Us</h2>
+            <p>We are a company dedicated to creating amazing web experiences.</p>
+            <img src="image.jpg" alt="Sample Image" width="300" height="200">
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 My Website. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>`;
+            
+            htmlInput.value = exampleHTML;
+            updateCharCount();
+            
+            // Auto-format the example
+            const indentSize = parseInt(indentSizeInput.value);
+            const useDoubleQuotes = attributeQuotesCheck.checked;
+            const wrapAttributes = wrapAttributesCheck.checked;
+            
+            const formatted = formatHTML(exampleHTML, indentSize, useDoubleQuotes, wrapAttributes);
+            const highlighted = applySyntaxHighlighting(formatted);
+            
+            htmlOutput.innerHTML = highlighted;
+            updateCharCount();
+        });
+        
+        // Update character count on input
+        htmlInput.addEventListener('input', updateCharCount);
+        
+        // Initialize
+        updateCharCount();
+        
+        // Add initial placeholder text to output
+        htmlOutput.textContent = 'Formatted HTML will appear here after you click the "Format HTML" button.';
+        updateCharCount();
+    </script>
+</body>
+</html>
