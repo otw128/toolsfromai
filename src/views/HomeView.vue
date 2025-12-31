@@ -1,0 +1,179 @@
+<script setup>
+import { RouterLink } from 'vue-router'
+
+const files = [
+  {
+    name: 'htmlFormatter.html',
+    description: 'List of all formatter HTML files',
+    route: '/html-formatter',
+    gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)'
+  },
+  {
+    name: 'mermaidFormatter.html',
+    description: 'List of all mermaid HTML files',
+    route: '/mermaid-formatter',
+    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+  },
+  {
+    name: 'Mermaid Preview',
+    description: 'List of Vue mermaid preview components',
+    route: '/mermaid-preview',
+    gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+  }
+]
+</script>
+
+<template>
+  <div class="body-container">
+    <div class="container">
+      <div class="header">
+        <h1>Workspace Files</h1>
+        <p>Select a file to view</p>
+      </div>
+      <div class="file-list">
+        <RouterLink
+          v-for="file in files"
+          :key="file.name"
+          :to="file.route"
+          class="file-item"
+          :style="{ '--hover-gradient': file.gradient }"
+        >
+          <div class="file-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/>
+            </svg>
+          </div>
+          <div class="file-info">
+            <div class="file-name">{{ file.name }}</div>
+            <div class="file-desc">{{ file.description }}</div>
+          </div>
+          <div class="arrow">
+            <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+              <path d="M10 17l5-5-5-5v10z"/>
+            </svg>
+          </div>
+        </RouterLink>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.body-container {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.header {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  padding: 30px;
+  text-align: center;
+}
+
+.header h1 {
+  color: white;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.header p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.file-list {
+  padding: 20px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.file-item:hover {
+  background: var(--hover-gradient);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(17, 153, 142, 0.3);
+}
+
+.file-item:hover .file-name {
+  color: white;
+}
+
+.file-item:hover .file-desc {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.file-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.file-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+.file-item:hover .file-icon {
+  background: white;
+}
+
+.file-item:hover .file-icon svg {
+  fill: #11998e;
+}
+
+.file-info {
+  flex: 1;
+}
+
+.file-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.file-desc {
+  font-size: 13px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.arrow {
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.file-item:hover .arrow {
+  opacity: 1;
+  transform: translateX(5px);
+}
+</style>
