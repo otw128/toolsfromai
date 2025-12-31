@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "js-beautify": "^1.15.4",
     "mermaid": "^11.12.2",
     "vue": "^3.4.0",
     "vue-router": "^4.2.0"
