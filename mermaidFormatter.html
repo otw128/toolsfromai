@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workspace Files</title>
+    <title>Mermaid Files</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -31,7 +31,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 30px;
             text-align: center;
         }
@@ -65,23 +65,23 @@
         }
 
         .file-item:hover {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(17, 153, 142, 0.3);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
 
         .file-item:hover .file-name {
             color: white;
         }
 
-        .file-item:hover .file-desc {
+        .file-item:hover .file-size {
             color: rgba(255, 255, 255, 0.8);
         }
 
         .file-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 10px;
             display: flex;
             justify-content: center;
@@ -100,7 +100,7 @@
         }
 
         .file-item:hover .file-icon svg {
-            fill: #11998e;
+            fill: #667eea;
         }
 
         .file-info {
@@ -114,7 +114,7 @@
             transition: color 0.3s ease;
         }
 
-        .file-desc {
+        .file-size {
             font-size: 13px;
             color: #888;
             margin-top: 4px;
@@ -134,19 +134,19 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Workspace Files</h1>
+            <h1>Mermaid Files</h1>
             <p>Select a file to view</p>
         </div>
         <div class="file-list">
-            <a href="htmlFormatter.html" class="file-item">
+            <a href="web/md/mermaid/mermaid-cg.html" class="file-item">
                 <div class="file-icon">
                     <svg viewBox="0 0 24 24">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/>
                     </svg>
                 </div>
                 <div class="file-info">
-                    <div class="file-name">htmlFormatter.html</div>
-                    <div class="file-desc">List of all formatter HTML files</div>
+                    <div class="file-name">mermaid-cg.html</div>
+                    <div class="file-size">1.14 KB</div>
                 </div>
                 <div class="arrow">
                     <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
@@ -155,15 +155,49 @@
                 </div>
             </a>
 
-            <a href="mermaidFormatter.html" class="file-item">
+            <a href="web/md/mermaid/mermaid-gm.html" class="file-item">
                 <div class="file-icon">
                     <svg viewBox="0 0 24 24">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/>
                     </svg>
                 </div>
                 <div class="file-info">
-                    <div class="file-name">mermaidFormatter.html</div>
-                    <div class="file-desc">List of all mermaid HTML files</div>
+                    <div class="file-name">mermaid-gm.html</div>
+                    <div class="file-size">3.59 KB</div>
+                </div>
+                <div class="arrow">
+                    <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                        <path d="M10 17l5-5-5-5v10z"/>
+                    </svg>
+                </div>
+            </a>
+
+            <a href="web/md/mermaid/mermaid-qw.html" class="file-item">
+                <div class="file-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/>
+                    </svg>
+                </div>
+                <div class="file-info">
+                    <div class="file-name">mermaid-qw.html</div>
+                    <div class="file-size">4.28 KB</div>
+                </div>
+                <div class="arrow">
+                    <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                        <path d="M10 17l5-5-5-5v10z"/>
+                    </svg>
+                </div>
+            </a>
+
+            <a href="web/md/mermaid/mermaid-yb.html" class="file-item">
+                <div class="file-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/>
+                    </svg>
+                </div>
+                <div class="file-info">
+                    <div class="file-name">mermaid-yb.html</div>
+                    <div class="file-size">24.45 KB</div>
                 </div>
                 <div class="arrow">
                     <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
