@@ -42,6 +42,31 @@ const router = createRouter({
       path: '/tools/md/preview/yb',
       name: 'preview-yb',
       component: () => import('../views/tools/md/preview/PreviewYb.vue')
+    },
+    {
+      path: '/video-to-gif',
+      name: 'video-to-gif',
+      component: () => import('../views/tools/video/VideoToGifView.vue')
+    },
+    {
+      path: '/tools/video/VideoToGif/VideoToGifCg.vue',
+      name: 'video-to-gif-cg',
+      component: () => import('../views/tools/video/VideoToGif/VideoToGifCg.vue')
+    },
+    {
+      path: '/tools/video/VideoToGif/VideoToGifGm.vue',
+      name: 'video-to-gif-gm',
+      component: () => import('../views/tools/video/VideoToGif/VideoToGifGm.vue')
+    },
+    {
+      path: '/tools/video/VideoToGif/VideoToGifQw.vue',
+      name: 'video-to-gif-qw',
+      component: () => import('../views/tools/video/VideoToGif/VideoToGifQw.vue')
+    },
+    {
+      path: '/tools/video/VideoToGif/VideoToGifYb.vue',
+      name: 'video-to-gif-yb',
+      component: () => import('../views/tools/video/VideoToGif/VideoToGifYb.vue')
     }
   ]
 })

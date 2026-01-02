@@ -14,7 +14,7 @@ export default defineConfig({
     port: 3000,
     open: true,
     allowedHosts: [
-      'khd2ynz7sl-3000.cnb.run',
+      '53kgtdokag-3000.cnb.run',
       'localhost',
       '127.0.0.1',
       '0.0.0.0'
@@ -24,7 +24,7 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 4175,
     allowedHosts: [
-      'khd2ynz7sl-3000.cnb.run',
+      '53kgtdokag-3000.cnb.run',
       'localhost',
       '127.0.0.1',
       '0.0.0.0'
