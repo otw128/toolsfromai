@@ -67,6 +67,11 @@ const router = createRouter({
       path: '/tools/video/VideoToGif/VideoToGifYb.vue',
       name: 'video-to-gif-yb',
       component: () => import('../views/tools/video/VideoToGif/VideoToGifYb.vue')
+    },
+    {
+      path: '/function-to-chart',
+      name: 'function-to-chart',
+      component: () => import('../views/tools/math/functiontochart/FunctiontochartIndex.vue')
     }
   ]
 })

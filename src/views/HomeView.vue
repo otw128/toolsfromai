@@ -25,6 +25,12 @@ const files = [
     description: 'List of Vue VideoToGif components',
     route: '/video-to-gif',
     gradient: 'linear-gradient(135deg, #ff6b6b 0%, #ffa06b 100%)'
+  },
+  {
+    name: 'Function to Chart',
+    description: 'Math function plotting tools',
+    route: '/function-to-chart',
+    gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
   }
 ]
 </script>

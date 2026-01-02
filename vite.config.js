@@ -9,6 +9,19 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'mathjs': ['mathjs'],
+          'chartjs': ['chart.js', 'vue-chartjs'],
+          'mermaid': ['mermaid'],
+          'ffmpeg': ['@ffmpeg/ffmpeg', '@ffmpeg/util']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
+  },
   server: {
     host: '0.0.0.0',
     port: 3000,

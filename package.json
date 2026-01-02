@@ -10,9 +10,12 @@
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
+    "chart.js": "^4.5.1",
     "js-beautify": "^1.15.4",
+    "mathjs": "^15.1.0",
     "mermaid": "^11.12.2",
     "vue": "^3.4.0",
+    "vue-chartjs": "^5.3.3",
     "vue-router": "^4.2.0"
   },
   "devDependencies": {
