@@ -10,7 +10,7 @@
         @click="switchTool('yb')"
       >
         <div class="tool-icon">📊</div>
-        <h3>基础绘图器</h3>
+        <h3>基础绘图器yb</h3>
         <p>使用 Canvas API 绘制，支持自定义 X/Y 范围</p>
       </div>
 
@@ -20,7 +20,7 @@
         @click="switchTool('gm')"
       >
         <div class="tool-icon">📈</div>
-        <h3>Chart.js 绘图</h3>
+        <h3>Chart.js 绘图gm</h3>
         <p>基于 Chart.js，支持平滑曲线和交互式图表</p>
       </div>
 
@@ -30,7 +30,7 @@
         @click="switchTool('qw')"
       >
         <div class="tool-icon">🎯</div>
-        <h3>Math.js 绘图</h3>
+        <h3>Math.js 绘图qw</h3>
         <p>使用 Math.js 解析表达式，支持复杂数学函数</p>
       </div>
 
@@ -40,7 +40,7 @@
         @click="switchTool('cg')"
       >
         <div class="tool-icon">✏️</div>
-        <h3>自定义绘图</h3>
+        <h3>自定义绘图cg</h3>
         <p>简化版 Canvas 绘图，快速可视化函数</p>
       </div>
     </div>
