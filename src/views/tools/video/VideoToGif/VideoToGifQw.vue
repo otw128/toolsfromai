@@ -17,16 +17,19 @@
 
 <script setup>
 import { ref } from 'vue';
-import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
+import { FFmpeg } from '@ffmpeg/ffmpeg';
+import { fetchFile, toBlobURL } from '@ffmpeg/util';
 
-const ffmpeg = createFFmpeg({ log: true });
+const ffmpeg = new FFmpeg();
 const loading = ref(false);
 const gifUrl = ref('');
 
 const loadFFmpeg = async () => {
-  if (!ffmpeg.isLoaded()) {
-    await ffmpeg.load();
-  }
+  const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
+  await ffmpeg.load({
+    coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+    wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+  });
 };
 
 const handleFileUpload = async (event) => {
@@ -37,24 +40,26 @@ const handleFileUpload = async (event) => {
   gifUrl.value = '';
 
   try {
-    await loadFFmpeg();
+    if (!ffmpeg.loaded) {
+      await loadFFmpeg();
+    }
 
     // Write the video file to FFmpeg's virtual file system
-    ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(file));
+    await ffmpeg.writeFile('input.mp4', await fetchFile(file));
 
     // Run FFmpeg command to convert video to GIF
     // You can adjust fps, scale, etc.
-    await ffmpeg.run(
+    await ffmpeg.exec([
       '-i', 'input.mp4',
       '-t', '5',               // limit to first 5 seconds
       '-vf', 'fps=10,scale=320:240:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse',
       '-loop', '0',
       'output.gif'
-    );
+    ]);
 
     // Read the output GIF
-    const data = ffmpeg.FFS('readFile', 'output.gif');
-    const blob = new Blob([data.buffer], { type: 'image/gif' });
+    const data = await ffmpeg.readFile('output.gif');
+    const blob = new Blob([data], { type: 'image/gif' });
     gifUrl.value = URL.createObjectURL(blob);
   } catch (error) {
     console.error('Conversion failed:', error);

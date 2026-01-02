@@ -47,7 +47,8 @@
 </template>
 
 <script>
-import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
+import { FFmpeg } from '@ffmpeg/ffmpeg';
+import { fetchFile, toBlobURL } from '@ffmpeg/util';
 
 export default {
   name: 'VideoToGifConverter',
@@ -65,8 +66,12 @@ export default {
     };
   },
   async mounted() {
-    this.ffmpeg = createFFmpeg({ log: true });
-    await this.ffmpeg.load();
+    this.ffmpeg = new FFmpeg();
+    const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
+    await this.ffmpeg.load({
+      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+      wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+    });
   },
   methods: {
     handleFileUpload(event) {
@@ -85,24 +90,24 @@ export default {
 
       try {
         // Write the file to FFmpeg's virtual file system
-        this.ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(this.selectedFile));
+        await this.ffmpeg.writeFile('input.mp4', await fetchFile(this.selectedFile));
 
         // Run the FFmpeg command to convert video to GIF
-        await this.ffmpeg.run(
+        await this.ffmpeg.exec([
           '-i', 'input.mp4',
           '-ss', this.startTime.toString(),
           '-t', this.duration.toString(),
           '-vf', `fps=${this.fps},scale=${this.width}:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse`,
           '-loop', '0',
           'output.gif'
-        );
+        ]);
 
         // Read the result
-        const data = this.ffmpeg.FS('readFile', 'output.gif');
+        const data = await this.ffmpeg.readFile('output.gif');
 
         // Create a URL for the GIF
         this.gifUrl = URL.createObjectURL(
-          new Blob([data.buffer], { type: 'image/gif' })
+          new Blob([data], { type: 'image/gif' })
         );
       } catch (err) {
         console.error('Conversion error:', err);
