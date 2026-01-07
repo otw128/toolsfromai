@@ -76,7 +76,6 @@
 
 <script>
 import QRCode from 'qrcode'
-import QrCodeWithLogo from 'qrcode-with-logo'
 
 export default {
   name: 'QRGenerator',
@@ -127,30 +126,13 @@ export default {
     },
     async generateQR() {
       if (!this.qrData) return
-      
+
       try {
-        if (this.logoFile) {
-          // Generate QR with logo using qrcode-with-logo
-          const canvas = document.createElement('canvas')
-          await QrCodeWithLogo.toCanvas({
-            canvas,
-            content: this.qrData,
-            width: 300,
-            logo: {
-              image: this.logoFile,
-              radius: 8,
-              width: 60,
-              height: 60
-            }
-          })
-          this.qrCodeUrl = canvas.toDataURL()
-        } else {
-          // Generate standard QR code
-          this.qrCodeUrl = await QRCode.toDataURL(this.qrData, {
-            width: 300,
-            margin: 2
-          })
-        }
+        // Generate standard QR code
+        this.qrCodeUrl = await QRCode.toDataURL(this.qrData, {
+          width: 300,
+          margin: 2
+        })
       } catch (error) {
         console.error('QR Generation failed:', error)
         alert('Failed to generate QR code')
