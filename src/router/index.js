@@ -72,6 +72,31 @@ const router = createRouter({
       path: '/function-to-chart',
       name: 'function-to-chart',
       component: () => import('../views/tools/math/functiontochart/FunctiontochartIndex.vue')
+    },
+    {
+      path: '/qrcode-components',
+      name: 'qrcode-components',
+      component: () => import('../views/tools/utils/qrcode/ComponentList.vue')
+    },
+    {
+      path: '/tools/utils/qrcode/QrcodeCg.vue',
+      name: 'qrcode-cg',
+      component: () => import('../views/tools/utils/qrcode/QrcodeCg.vue')
+    },
+    {
+      path: '/tools/utils/qrcode/QrcodeGm.vue',
+      name: 'qrcode-gm',
+      component: () => import('../views/tools/utils/qrcode/QrcodeGm.vue')
+    },
+    {
+      path: '/tools/utils/qrcode/QrcodeQw.vue',
+      name: 'qrcode-qw',
+      component: () => import('../views/tools/utils/qrcode/QrcodeQw.vue')
+    },
+    {
+      path: '/tools/utils/qrcode/QrcodeYb.vue',
+      name: 'qrcode-yb',
+      component: () => import('../views/tools/utils/qrcode/QrcodeYb.vue')
     }
   ]
 })
