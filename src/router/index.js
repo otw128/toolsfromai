@@ -97,6 +97,31 @@ const router = createRouter({
       path: '/tools/utils/qrcode/QrcodeYb.vue',
       name: 'qrcode-yb',
       component: () => import('../views/tools/utils/qrcode/QrcodeYb.vue')
+    },
+    {
+      path: '/ymlformatter-components',
+      name: 'ymlformatter-components',
+      component: () => import('../views/tools/utils/ymlformatter/ComponentList.vue')
+    },
+    {
+      path: '/tools/utils/ymlformatter/YmlformatterCg.vue',
+      name: 'ymlformatter-cg',
+      component: () => import('../views/tools/utils/ymlformatter/YmlformatterCg.vue')
+    },
+    {
+      path: '/tools/utils/ymlformatter/YmlformatterGm.vue',
+      name: 'ymlformatter-gm',
+      component: () => import('../views/tools/utils/ymlformatter/YmlformatterGm.vue')
+    },
+    {
+      path: '/tools/utils/ymlformatter/YmlformatterQw.vue',
+      name: 'ymlformatter-qw',
+      component: () => import('../views/tools/utils/ymlformatter/YmlformatterQw.vue')
+    },
+    {
+      path: '/tools/utils/ymlformatter/YmlformatterYb.vue',
+      name: 'ymlformatter-yb',
+      component: () => import('../views/tools/utils/ymlformatter/YmlformatterYb.vue')
     }
   ]
 })
