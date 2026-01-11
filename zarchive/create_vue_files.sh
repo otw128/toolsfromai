@@ -7,7 +7,7 @@ FOLDER_NAME=$(basename "$(pwd)")
 FOLDER_NAME_CAPITALIZED="${FOLDER_NAME^}"
 
 # Create 4 Vue files based on folder name
-for suffix in Cg Gm Qw Yb; do
+for suffix in Cg Gm Qw Yb Db; do
     FILENAME="${FOLDER_NAME_CAPITALIZED}${suffix}.vue"
     
     # Create basic Vue template
