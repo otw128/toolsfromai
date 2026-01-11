@@ -152,6 +152,36 @@ const router = createRouter({
       path: '/tools/utils/LunarCalendar/LunarCalendarYb.vue',
       name: 'lunarcalendar-yb',
       component: () => import('../views/tools/utils/LunarCalendar/LunarCalendarYb.vue')
+    },
+    {
+      path: '/loan-calculator-components',
+      name: 'loan-calculator-components',
+      component: () => import('../views/tools/utils/LoanCalculator/ComponentList.vue')
+    },
+    {
+      path: '/tools/utils/LoanCalculator/LoanCalculatorCg.vue',
+      name: 'loan-calculator-cg',
+      component: () => import('../views/tools/utils/LoanCalculator/LoanCalculatorCg.vue')
+    },
+    {
+      path: '/tools/utils/LoanCalculator/LoanCalculatorCoz.vue',
+      name: 'loan-calculator-coz',
+      component: () => import('../views/tools/utils/LoanCalculator/LoanCalculatorCoz.vue')
+    },
+    {
+      path: '/tools/utils/LoanCalculator/LoanCalculatorGm.vue',
+      name: 'loan-calculator-gm',
+      component: () => import('../views/tools/utils/LoanCalculator/LoanCalculatorGm.vue')
+    },
+    {
+      path: '/tools/utils/LoanCalculator/LoanCalculatorQw.vue',
+      name: 'loan-calculator-qw',
+      component: () => import('../views/tools/utils/LoanCalculator/LoanCalculatorQw.vue')
+    },
+    {
+      path: '/tools/utils/LoanCalculator/LoanCalculatorYb.vue',
+      name: 'loan-calculator-yb',
+      component: () => import('../views/tools/utils/LoanCalculator/LoanCalculatorYb.vue')
     }
   ]
 })
