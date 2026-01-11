@@ -122,6 +122,36 @@ const router = createRouter({
       path: '/tools/utils/ymlformatter/YmlformatterYb.vue',
       name: 'ymlformatter-yb',
       component: () => import('../views/tools/utils/ymlformatter/YmlformatterYb.vue')
+    },
+    {
+      path: '/lunarcalendar-components',
+      name: 'lunarcalendar-components',
+      component: () => import('../views/tools/utils/LunarCalendar/ComponentList.vue')
+    },
+    {
+      path: '/tools/utils/LunarCalendar/LunarCalendarCg.vue',
+      name: 'lunarcalendar-cg',
+      component: () => import('../views/tools/utils/LunarCalendar/LunarCalendarCg.vue')
+    },
+    {
+      path: '/tools/utils/LunarCalendar/LunarCalendarDb.vue',
+      name: 'lunarcalendar-db',
+      component: () => import('../views/tools/utils/LunarCalendar/LunarCalendarDb.vue')
+    },
+    {
+      path: '/tools/utils/LunarCalendar/LunarCalendarGm.vue',
+      name: 'lunarcalendar-gm',
+      component: () => import('../views/tools/utils/LunarCalendar/LunarCalendarGm.vue')
+    },
+    {
+      path: '/tools/utils/LunarCalendar/LunarCalendarQw.vue',
+      name: 'lunarcalendar-qw',
+      component: () => import('../views/tools/utils/LunarCalendar/LunarCalendarQw.vue')
+    },
+    {
+      path: '/tools/utils/LunarCalendar/LunarCalendarYb.vue',
+      name: 'lunarcalendar-yb',
+      component: () => import('../views/tools/utils/LunarCalendar/LunarCalendarYb.vue')
     }
   ]
 })

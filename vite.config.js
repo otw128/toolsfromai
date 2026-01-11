@@ -27,7 +27,7 @@ export default defineConfig({
     port: 3000,
     open: true,
     allowedHosts: [
-      '1zgfsowhd6-3000.cnb.run',
+      'sibhzxup8n-3000.cnb.run',
       'localhost',
       '127.0.0.1',
       '0.0.0.0'

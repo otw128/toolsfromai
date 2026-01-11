@@ -3,52 +3,24 @@ import { RouterLink } from 'vue-router'
 
 const files = [
   {
-    name: 'htmlFormatter.html',
-    description: 'List of all formatter HTML files',
-    route: '/html-formatter',
-    gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)'
+    name: 'LunarCalendarCg.vue',
+    path: '/tools/utils/LunarCalendar/LunarCalendarCg.vue'
   },
   {
-    name: 'mermaidFormatter.html',
-    description: 'List of all mermaid HTML files',
-    route: '/mermaid-formatter',
-    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+    name: 'LunarCalendarDb.vue',
+    path: '/tools/utils/LunarCalendar/LunarCalendarDb.vue'
   },
   {
-    name: 'Mermaid Preview',
-    description: 'List of Vue mermaid preview components',
-    route: '/mermaid-preview',
-    gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+    name: 'LunarCalendarGm.vue',
+    path: '/tools/utils/LunarCalendar/LunarCalendarGm.vue'
   },
   {
-    name: 'VideoToGif Components',
-    description: 'List of Vue VideoToGif components',
-    route: '/video-to-gif',
-    gradient: 'linear-gradient(135deg, #ff6b6b 0%, #ffa06b 100%)'
+    name: 'LunarCalendarQw.vue',
+    path: '/tools/utils/LunarCalendar/LunarCalendarQw.vue'
   },
   {
-    name: 'Function to Chart',
-    description: 'Math function plotting tools',
-    route: '/function-to-chart',
-    gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
-  },
-  {
-    name: 'QR Code Components',
-    description: 'List of Vue QR code components',
-    route: '/qrcode-components',
-    gradient: 'linear-gradient(135deg, #f5af19 0%, #f12711 100%)'
-  },
-  {
-    name: 'YAML Formatter Components',
-    description: 'List of Vue YAML formatter components',
-    route: '/ymlformatter-components',
-    gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
-  },
-  {
-    name: 'Lunar Calendar Components',
-    description: 'List of Vue Lunar Calendar components',
-    route: '/lunarcalendar-components',
-    gradient: 'linear-gradient(135deg, #f5af19 0%, #f12711 100%)'
+    name: 'LunarCalendarYb.vue',
+    path: '/tools/utils/LunarCalendar/LunarCalendarYb.vue'
   }
 ]
 </script>
@@ -57,16 +29,15 @@ const files = [
   <div class="body-container">
     <div class="container">
       <div class="header">
-        <h1>Workspace Files</h1>
-        <p>Select a file to view</p>
+        <h1>Lunar Calendar Components</h1>
+        <p>List of Vue Lunar Calendar components</p>
       </div>
       <div class="file-list">
         <RouterLink
           v-for="file in files"
           :key="file.name"
-          :to="file.route"
+          :to="file.path"
           class="file-item"
-          :style="{ '--hover-gradient': file.gradient }"
         >
           <div class="file-icon">
             <svg viewBox="0 0 24 24">
@@ -75,7 +46,6 @@ const files = [
           </div>
           <div class="file-info">
             <div class="file-name">{{ file.name }}</div>
-            <div class="file-desc">{{ file.description }}</div>
           </div>
           <div class="arrow">
             <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
@@ -84,13 +54,18 @@ const files = [
           </div>
         </RouterLink>
       </div>
+      <div class="back-link">
+        <RouterLink to="/" class="back-button">
+          ← Back to Home
+        </RouterLink>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .body-container {
-  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -108,7 +83,7 @@ const files = [
 }
 
 .header {
-  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
   padding: 30px;
   text-align: center;
 }
@@ -142,23 +117,19 @@ const files = [
 }
 
 .file-item:hover {
-  background: var(--hover-gradient);
+  background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(17, 153, 142, 0.3);
+  box-shadow: 0 8px 20px rgba(241, 39, 17, 0.3);
 }
 
 .file-item:hover .file-name {
   color: white;
 }
 
-.file-item:hover .file-desc {
-  color: rgba(255, 255, 255, 0.8);
-}
-
 .file-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -177,7 +148,7 @@ const files = [
 }
 
 .file-item:hover .file-icon svg {
-  fill: #11998e;
+  fill: #f12711;
 }
 
 .file-info {
@@ -191,12 +162,6 @@ const files = [
   transition: color 0.3s ease;
 }
 
-.file-desc {
-  font-size: 13px;
-  color: #888;
-  margin-top: 4px;
-}
-
 .arrow {
   opacity: 0;
   transition: all 0.3s ease;
@@ -205,5 +170,27 @@ const files = [
 .file-item:hover .arrow {
   opacity: 1;
   transform: translateX(5px);
+}
+
+.back-link {
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(241, 39, 17, 0.3);
 }
 </style>
