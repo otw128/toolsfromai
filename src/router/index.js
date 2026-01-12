@@ -182,6 +182,36 @@ const router = createRouter({
       path: '/tools/utils/LoanCalculator/LoanCalculatorYb.vue',
       name: 'loan-calculator-yb',
       component: () => import('../views/tools/utils/LoanCalculator/LoanCalculatorYb.vue')
+    },
+    {
+      path: '/file-to-base64-converter',
+      name: 'file-to-base64-converter',
+      component: () => import('../views/tools/utils/FileToBase64Converter/ComponentList.vue')
+    },
+    {
+      path: '/tools/utils/FileToBase64Converter/FileToBase64ConverterCg.vue',
+      name: 'file-to-base64-converter-cg',
+      component: () => import('../views/tools/utils/FileToBase64Converter/FileToBase64ConverterCg.vue')
+    },
+    {
+      path: '/tools/utils/FileToBase64Converter/FileToBase64ConverterCoz.vue',
+      name: 'file-to-base64-converter-coz',
+      component: () => import('../views/tools/utils/FileToBase64Converter/FileToBase64ConverterCoz.vue')
+    },
+    {
+      path: '/tools/utils/FileToBase64Converter/FileToBase64ConverterGm.vue',
+      name: 'file-to-base64-converter-gm',
+      component: () => import('../views/tools/utils/FileToBase64Converter/FileToBase64ConverterGm.vue')
+    },
+    {
+      path: '/tools/utils/FileToBase64Converter/FileToBase64ConverterQw.vue',
+      name: 'file-to-base64-converter-qw',
+      component: () => import('../views/tools/utils/FileToBase64Converter/FileToBase64ConverterQw.vue')
+    },
+    {
+      path: '/tools/utils/FileToBase64Converter/FileToBase64ConverterYb.vue',
+      name: 'file-to-base64-converter-yb',
+      component: () => import('../views/tools/utils/FileToBase64Converter/FileToBase64ConverterYb.vue')
     }
   ]
 })

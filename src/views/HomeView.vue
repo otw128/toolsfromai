@@ -55,6 +55,12 @@ const files = [
     description: 'List of Vue Loan Calculator components',
     route: '/loan-calculator-components',
     gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+  },
+  {
+    name: 'File to Base64 Converter Components',
+    description: 'List of Vue File to Base64 Converter components',
+    route: '/file-to-base64-converter',
+    gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
   }
 ]
 </script>
