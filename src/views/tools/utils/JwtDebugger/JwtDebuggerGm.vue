@@ -3,33 +3,28 @@ import { ref, computed, watch } from 'vue';
 
 // --- State ---
 const rawToken = ref('');
+// Default initial state
 const headerInput = ref('{\n  "alg": "HS256",\n  "typ": "JWT"\n}');
 const payloadInput = ref('{\n  "sub": "1234567890",\n  "name": "John Doe",\n  "iat": 1516239022\n}');
-const secret = ref('your-256-bit-secret');
-const is decoding = ref(false);
+const secret = ref('secret');
+const isDecoding = ref(false);
 
-// --- Utilities ---
-
-// Base64URL Decode (Handling the URL safe characters)
+// --- Helpers for Base64URL (Modern & Unicode Safe) ---
 const base64UrlDecode = (str) => {
   try {
     const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(
-      window.atob(base64)
-        .split('')
-        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
+      window.atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
     );
     return JSON.stringify(JSON.parse(jsonPayload), null, 2);
   } catch (e) {
-    return null;
+    return null; 
   }
 };
 
-// Base64URL Encode
 const base64UrlEncode = (str) => {
   try {
-    return window.btoa(str)
+    return window.btoa(unescape(encodeURIComponent(str)))
       .replace(/\+/g, '-')
       .replace(/\//g, '_')
       .replace(/=+$/, '');
@@ -38,14 +33,14 @@ const base64UrlEncode = (str) => {
   }
 };
 
-// --- Logic ---
+// --- Reactive Logic ---
 
-// 1. Watch for changes in the RAW TOKEN (Decoder Logic)
+// 1. If user changes the TOKEN (Top Box) -> Update JSON (Bottom Boxes)
 watch(rawToken, (newToken) => {
-  if (is decoding.value) return; // Prevent loop
-  
+  if (isDecoding.value) return; // Prevent infinite loop
+
   const parts = newToken.split('.');
-  if (parts.length === 3 || parts.length === 2) {
+  if (parts.length >= 2) {
     const header = base64UrlDecode(parts[0]);
     const payload = base64UrlDecode(parts[1]);
 
@@ -54,130 +49,112 @@ watch(rawToken, (newToken) => {
   }
 });
 
-// 2. Watch for changes in JSON INPUTS (Encoder Logic)
-// Note: We are simulating the signature here as browser-side crypto is complex 
-// for a single snippet. In a real app, use 'jose' or 'jsonwebtoken'.
-const encodedHeader = computed(() => base64UrlEncode(headerInput.value));
-const encodedPayload = computed(() => base64UrlEncode(payloadInput.value));
-
+// 2. If user changes JSON (Bottom Boxes) -> Update TOKEN (Top Box)
+// We watch Header, Payload, or Secret changes
 watch([headerInput, payloadInput, secret], () => {
   isDecoding.value = true;
-  // Reconstruct token: Header.Payload.Signature(Mock)
-  // We keep the signature part generic or empty since we aren't doing actual HMAC calculation here
-  // to avoid external dependencies.
-  rawToken.value = `${encodedHeader.value}.${encodedPayload.value}.SIGNATURE_PLACEHOLDER`;
   
-  // Reset flag after a tick
+  const encodedHeader = base64UrlEncode(headerInput.value);
+  const encodedPayload = base64UrlEncode(payloadInput.value);
+  
+  // Note: Real signature generation requires a crypto lib. 
+  // We simulate the signature part here for UI demonstration.
+  const signature = "SIGNATURE_HASH"; 
+  
+  rawToken.value = `${encodedHeader}.${encodedPayload}.${signature}`;
+  
+  // Unlock the watcher after updates settle
   setTimeout(() => { isDecoding.value = false; }, 0);
-});
+}, { immediate: true }); 
 
-// Helper to determine text color based on JWT part convention
-const colorMap = {
-  header: 'text-rose-500',
-  payload: 'text-violet-500',
-  signature: 'text-cyan-500'
-};
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-50 text-slate-800 font-sans p-6 md:p-10 flex flex-col gap-6">
+  <div class="min-h-screen bg-slate-50 text-slate-800 font-sans p-6 md:p-8 flex flex-col gap-6">
     
-    <div class="flex justify-between items-center mb-2">
+    <header class="flex justify-between items-end pb-2 border-b border-slate-200">
       <div>
-        <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">JWT Debugger</h1>
-        <p class="text-slate-500 mt-1">Encode and decode JSON Web Tokens in real-time.</p>
+        <h1 class="text-3xl font-extrabold text-indigo-600 tracking-tight">JWT Debugger</h1>
+        <p class="text-slate-500 text-sm mt-1">Vue 3 + Tailwind CSS • Bi-directional Editing</p>
       </div>
-      <div class="flex gap-2">
-        <span class="px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-xs font-bold uppercase tracking-wide">Header</span>
-        <span class="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-bold uppercase tracking-wide">Payload</span>
-        <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-bold uppercase tracking-wide">Signature</span>
+      <div class="flex gap-2 text-[10px] font-bold uppercase tracking-wider">
+        <span class="px-2 py-1 bg-rose-100 text-rose-600 rounded">Header</span>
+        <span class="px-2 py-1 bg-violet-100 text-violet-600 rounded">Payload</span>
+        <span class="px-2 py-1 bg-cyan-100 text-cyan-600 rounded">Signature</span>
       </div>
-    </div>
+    </header>
 
-    <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 flex flex-col">
-      <div class="bg-slate-100 px-6 py-3 border-b border-slate-200 flex justify-between items-center">
-        <h2 class="font-semibold text-slate-700 uppercase text-sm tracking-wider">Encoded Token</h2>
+    <section class="flex flex-col gap-2">
+      <div class="flex justify-between items-center">
+        <label class="text-sm font-semibold text-slate-700 uppercase tracking-wide">Encoded Token</label>
         <button 
           @click="navigator.clipboard.writeText(rawToken)"
-          class="text-xs bg-white border border-slate-300 hover:bg-slate-50 text-slate-600 px-3 py-1 rounded transition"
+          class="text-xs text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 px-2 py-1 rounded transition"
         >
-          Copy Token
+          Copy to clipboard
         </button>
       </div>
+      
       <div class="relative group">
         <textarea
           v-model="rawToken"
-          class="w-full h-40 p-6 font-mono text-lg leading-relaxed focus:outline-none focus:ring-2 focus:ring-indigo-500/50 resize-none text-slate-600 break-all"
-          placeholder="Paste your JWT here..."
+          class="w-full h-32 p-4 font-mono text-base bg-white border border-slate-300 rounded-xl shadow-sm focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400 outline-none transition resize-none text-slate-600 break-all"
+          placeholder="Paste JWT here..."
         ></textarea>
-        </div>
-    </div>
+      </div>
+    </section>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1">
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
       
-      <div class="bg-white rounded-2xl shadow-xl border-l-4 border-rose-500 overflow-hidden flex flex-col">
-        <div class="bg-rose-50/50 px-6 py-3 border-b border-slate-100 flex justify-between items-center">
-          <h2 class="font-bold text-rose-600 uppercase text-sm tracking-wider">Header</h2>
-          <span class="text-xs text-rose-400 font-mono">Algorithm & Token Type</span>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-semibold text-rose-600 uppercase tracking-wide border-l-4 border-rose-500 pl-2">Header</label>
+        <div class="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col relative focus-within:ring-2 focus-within:ring-rose-100 focus-within:border-rose-300 transition">
+           <textarea
+            v-model="headerInput"
+            class="w-full h-full min-h-[200px] p-4 font-mono text-sm text-slate-700 resize-none outline-none"
+            spellcheck="false"
+          ></textarea>
         </div>
-        <textarea
-          v-model="headerInput"
-          class="w-full h-full min-h-[250px] p-6 font-mono text-sm text-slate-700 focus:outline-none focus:bg-slate-50 resize-none"
-          spellcheck="false"
-        ></textarea>
       </div>
 
-      <div class="bg-white rounded-2xl shadow-xl border-l-4 border-violet-500 overflow-hidden flex flex-col">
-        <div class="bg-violet-50/50 px-6 py-3 border-b border-slate-100 flex justify-between items-center">
-          <h2 class="font-bold text-violet-600 uppercase text-sm tracking-wider">Payload</h2>
-          <span class="text-xs text-violet-400 font-mono">Data Claims</span>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-semibold text-violet-600 uppercase tracking-wide border-l-4 border-violet-500 pl-2">Payload</label>
+        <div class="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col relative focus-within:ring-2 focus-within:ring-violet-100 focus-within:border-violet-300 transition">
+           <textarea
+            v-model="payloadInput"
+            class="w-full h-full min-h-[200px] p-4 font-mono text-sm text-slate-700 resize-none outline-none"
+            spellcheck="false"
+          ></textarea>
         </div>
-        <textarea
-          v-model="payloadInput"
-          class="w-full h-full min-h-[250px] p-6 font-mono text-sm text-slate-700 focus:outline-none focus:bg-slate-50 resize-none"
-          spellcheck="false"
-        ></textarea>
       </div>
+    </section>
 
-    </div>
-
-    <div class="bg-white rounded-2xl shadow-lg border-l-4 border-cyan-500 overflow-hidden">
-       <div class="bg-cyan-50/50 px-6 py-3 border-b border-slate-100 flex justify-between items-center">
-          <h2 class="font-bold text-cyan-600 uppercase text-sm tracking-wider">Verify Signature</h2>
-        </div>
-        <div class="p-6 flex flex-col md:flex-row gap-4 items-center">
-          <div class="font-mono text-sm text-slate-500 bg-slate-100 px-4 py-2 rounded border border-slate-200 select-none">
-            HMACSHA256(
-            <span class="text-rose-500">base64UrlEncode(header)</span> + "." +
-            <span class="text-violet-500">base64UrlEncode(payload)</span>,
-            <span class="text-cyan-600">your-256-bit-secret</span>
-            )
-          </div>
-          <input 
-            v-model="secret"
-            type="text" 
-            placeholder="Enter your secret key"
-            class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none font-mono text-cyan-700"
-          >
-        </div>
-    </div>
+    <section class="bg-cyan-50 border border-cyan-100 rounded-lg p-4 flex items-center gap-4">
+      <div class="text-cyan-700 font-bold text-sm uppercase whitespace-nowrap">Verify Signature</div>
+      <input 
+        v-model="secret"
+        type="text" 
+        placeholder="your-256-bit-secret"
+        class="w-full bg-white border border-cyan-200 text-cyan-800 text-sm px-3 py-2 rounded focus:outline-none focus:border-cyan-400 font-mono"
+      >
+    </section>
 
   </div>
 </template>
 
 <style scoped>
-/* Custom Scrollbar for textareas */
+/* Custom scrollbar for a cleaner look */
 textarea::-webkit-scrollbar {
   width: 8px;
 }
 textarea::-webkit-scrollbar-track {
-  background: #f1f5f9; 
+  background: transparent; 
 }
 textarea::-webkit-scrollbar-thumb {
-  background: #cbd5e1; 
-  border-radius: 4px;
+  background-color: #cbd5e1; 
+  border-radius: 4px; 
 }
 textarea::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8; 
+  background-color: #94a3b8; 
 }
 </style>
