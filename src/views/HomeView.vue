@@ -61,6 +61,12 @@ const files = [
     description: 'List of Vue File to Base64 Converter components',
     route: '/file-to-base64-converter',
     gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+  },
+  {
+    name: 'JWT Debugger Components',
+    description: 'List of Vue JWT Debugger components',
+    route: '/jwt-debugger-components',
+    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
   }
 ]
 </script>

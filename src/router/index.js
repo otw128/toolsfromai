@@ -212,6 +212,36 @@ const router = createRouter({
       path: '/tools/utils/FileToBase64Converter/FileToBase64ConverterYb.vue',
       name: 'file-to-base64-converter-yb',
       component: () => import('../views/tools/utils/FileToBase64Converter/FileToBase64ConverterYb.vue')
+    },
+    {
+      path: '/jwt-debugger-components',
+      name: 'jwt-debugger-components',
+      component: () => import('../views/tools/utils/JwtDebugger/ComponentList.vue')
+    },
+    {
+      path: '/tools/utils/JwtDebugger/JwtDebuggerCg.vue',
+      name: 'jwt-debugger-cg',
+      component: () => import('../views/tools/utils/JwtDebugger/JwtDebuggerCg.vue')
+    },
+    {
+      path: '/tools/utils/JwtDebugger/JwtDebuggerCoz.vue',
+      name: 'jwt-debugger-coz',
+      component: () => import('../views/tools/utils/JwtDebugger/JwtDebuggerCoz.vue')
+    },
+    {
+      path: '/tools/utils/JwtDebugger/JwtDebuggerGm.vue',
+      name: 'jwt-debugger-gm',
+      component: () => import('../views/tools/utils/JwtDebugger/JwtDebuggerGm.vue')
+    },
+    {
+      path: '/tools/utils/JwtDebugger/JwtDebuggerQw.vue',
+      name: 'jwt-debugger-qw',
+      component: () => import('../views/tools/utils/JwtDebugger/JwtDebuggerQw.vue')
+    },
+    {
+      path: '/tools/utils/JwtDebugger/JwtDebuggerYb.vue',
+      name: 'jwt-debugger-yb',
+      component: () => import('../views/tools/utils/JwtDebugger/JwtDebuggerYb.vue')
     }
   ]
 })
