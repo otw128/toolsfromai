@@ -1,0 +1,65 @@
+{
+  "name": "my-nextjs-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    // Core framework: Next.js v16.1 (App Router + Server Components by default)
+    // Why: Industry-standard React meta-framework with SSR, SSG, ISR, file-based routing,
+    // built-in API routes, and optimized performance out of the box.
+    "next": "16.1.0",
+
+    // UI library: React is required by Next.js
+    // Why: Declarative UI building with component model; tightly integrated with Next.js.
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+
+    // Styling: Tailwind CSS – utility-first CSS framework
+    // Why: Rapid UI development, responsive design, JIT compiler, seamless integration with Next.js.
+    "tailwindcss": "latest",
+    "postcss": "latest",
+    "autoprefixer": "latest",
+
+    // State management: Zustand (lightweight alternative to Redux)
+    // Why: Simple, scalable, no boilerplate, works great with server components (avoids hydration issues).
+    "zustand": "latest",
+
+    // Data fetching & API client: SWR (by Vercel)
+    // Why: Built-in caching, revalidation, focus/refetch, perfect for Next.js data fetching patterns.
+    "swr": "latest",
+
+    // Icons: Lucide React (modern, lightweight icon set)
+    // Why: Tree-shakable, consistent design, easy to use with TypeScript.
+    "lucide-react": "latest",
+
+    // Form handling: React Hook Form + Zod validation
+    // Why: Performant forms with minimal re-renders; Zod provides type-safe schema validation.
+    "react-hook-form": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    // Linting: ESLint + recommended Next.js config
+    // Why: Catches bugs, enforces code style, improves maintainability.
+    "eslint": "latest",
+    "eslint-config-next": "16.1.0",
+
+    // Type safety: TypeScript
+    // Why: Catches errors at compile time, improves DX, essential for large apps.
+    "typescript": "latest",
+
+    // Testing: Jest + React Testing Library (optional but common)
+    // Why: Unit and integration testing for components and logic.
+    "jest": "latest",
+    "@testing-library/react": "latest",
+    "@testing-library/jest-dom": "latest",
+
+    // Formatting: Prettier
+    // Why: Enforces consistent code formatting across the team.
+    "prettier": "latest"
+  }
+}

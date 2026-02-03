@@ -1,0 +1,95 @@
+{
+  "name": "nextjs-modern-stack",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Modern Next.js 16.1 application with production-grade tech stack",
+  
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  
+  "dependencies": {
+    // CORE FRAMEWORK
+    "next": "16.1.0", // Latest stable with improved performance, React 19 support
+    "react": "^19.0.0", // Concurrent features, new hooks
+    "react-dom": "^19.0.0", // Server Components-ready
+    
+    // STATE MANAGEMENT
+    "zustand": "^5.0.0", // Minimal, fast state management (simpler than Redux)
+    "@tanstack/react-query": "^5.0.0", // Server state management, caching, background updates
+    
+    // UI & STYLING
+    "tailwindcss": "^3.4.0", // Utility-first CSS, fast dev experience
+    "class-variance-authority": "^0.7.0", // Type-safe UI variants
+    "lucide-react": "^0.0.0", // Icon library, tree-shakable
+    "@radix-ui/react-slot": "^1.0.0", // Headless UI primitives
+    
+    // FORM HANDLING
+    "react-hook-form": "^7.0.0", // Performance, minimal re-renders
+    "zod": "^3.0.0", // Type-safe validation, infer TypeScript types
+    "@hookform/resolvers": "^3.0.0", // Connect react-hook-form with zod
+    
+    // ROUTING & NAVIGATION
+    "@tanstack/react-router": "^1.0.0", // Type-safe routing (alternative to Next.js router)
+    
+    // HTTP CLIENT
+    "axios": "^1.6.0", // OR "ofetch" for smaller bundle
+    "zodios": "^12.0.0", // End-to-end type safety for APIs
+    
+    // AUTHENTICATION
+    "@auth/core": "^0.0.0", // Framework-agnostic auth (simpler than NextAuth)
+    "@clerk/nextjs": "^5.0.0", // Alternative: production-ready auth
+    
+    // UTILITIES
+    "date-fns": "^3.0.0", // Lightweight date manipulation
+    "clsx": "^2.0.0", // Conditional className utility
+    "tailwind-merge": "^2.0.0" // Merge Tailwind classes
+  },
+  
+  "devDependencies": {
+    // TYPE SAFETY
+    "typescript": "^5.3.0", // Latest features, satisfies Next.js 16.1
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    
+    // CODE QUALITY
+    "eslint": "^8.0.0",
+    "eslint-config-next": "16.1.0", // Next.js specific rules
+    "prettier": "^3.0.0", // Consistent code formatting
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    
+    // TESTING
+    "jest": "^29.0.0",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/user-event": "^14.0.0",
+    
+    // TOOLING
+    "postcss": "^8.0.0", // Required for Tailwind
+    "autoprefixer": "^10.0.0", // Browser prefixing
+    "@types/jest": "^29.0.0", // Jest TypeScript support
+    
+    // PERFORMANCE
+    "@next/bundle-analyzer": "^16.1.0" // Bundle size analysis
+  },
+  
+  "engines": {
+    "node": ">=18.17.0", // Next.js 16.1 minimum requirement
+    "npm": ">=9.0.0"
+  },
+  
+  "packageManager": "pnpm@8.0.0", // Faster, disk-efficient (or npm/yarn)
+  
+  "browserslist": [
+    "defaults",
+    "not IE 11" // Modern browsers only
+  ]
+}

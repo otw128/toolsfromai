@@ -1,0 +1,156 @@
+{
+  "name": "nextjs-modern-stack",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "type-check": "tsc --noEmit",
+    "test": "jest --watch",
+    "test:ci": "jest --ci",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    // Core Framework - Next.js 16.1
+    // Features: App Router, Server Components, Streaming, Built-in optimizations
+    "next": "16.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+
+    // UI Component Library - shadcn/ui with Radix UI primitives
+    // Why: Accessible, customizable, copy-paste components (not npm package)
+    // Features: Headless UI primitives, full accessibility, Tailwind integration
+    "@radix-ui/react-accordion": "^1.2.2",
+    "@radix-ui/react-alert-dialog": "^1.1.4",
+    "@radix-ui/react-avatar": "^1.1.2",
+    "@radix-ui/react-checkbox": "^1.1.3",
+    "@radix-ui/react-dialog": "^1.1.4",
+    "@radix-ui/react-dropdown-menu": "^2.1.4",
+    "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-popover": "^1.1.4",
+    "@radix-ui/react-select": "^2.1.4",
+    "@radix-ui/react-separator": "^1.1.1",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-tabs": "^1.1.2",
+    "@radix-ui/react-toast": "^1.2.4",
+    
+    // Styling - Tailwind CSS
+    // Why: Utility-first, highly customizable, excellent DX, small bundle size
+    // Features: JIT compilation, responsive design, dark mode support
+    "tailwindcss": "^3.4.17",
+    "tailwind-merge": "^2.6.0",
+    "clsx": "^2.1.1",
+    "class-variance-authority": "^0.7.1",
+
+    // Icons - Lucide React
+    // Why: Beautiful, consistent icons, tree-shakeable, actively maintained
+    // Features: 1000+ icons, TypeScript support, customizable size/color
+    "lucide-react": "^0.468.0",
+
+    // Form Handling - React Hook Form
+    // Why: Performant, minimal re-renders, easy validation, small bundle
+    // Features: Built-in validation, schema integration, TypeScript support
+    "react-hook-form": "^7.54.2",
+    
+    // Schema Validation - Zod
+    // Why: TypeScript-first, type inference, composable schemas
+    // Features: Runtime validation, error messages, schema composition
+    "zod": "^3.24.1",
+    "@hookform/resolvers": "^3.9.1",
+
+    // State Management - Zustand
+    // Why: Simple API, minimal boilerplate, React 19 compatible
+    // Features: No providers, DevTools support, middleware support
+    "zustand": "^5.0.2",
+
+    // Data Fetching - TanStack Query (React Query)
+    // Why: Powerful caching, auto-refetch, optimistic updates, devtools
+    // Features: Background updates, pagination, infinite scroll, mutations
+    "@tanstack/react-query": "^5.62.11",
+    "@tanstack/react-query-devtools": "^5.62.11",
+
+    // HTTP Client - Axios
+    // Why: Interceptors, request/response transformation, timeout handling
+    // Features: Promise-based, browser & Node support, cancelable requests
+    "axios": "^1.7.9",
+
+    // Date Handling - date-fns
+    // Why: Modular, tree-shakeable, immutable, extensive locale support
+    // Features: 200+ functions, TypeScript support, small bundle
+    "date-fns": "^4.1.0",
+
+    // Animation - Framer Motion
+    // Why: Production-ready, declarative API, gesture support, layout animations
+    // Features: Spring animations, SVG support, scroll-triggered animations
+    "framer-motion": "^11.15.0",
+
+    // Authentication - NextAuth.js v5 (Auth.js)
+    // Why: Next.js integration, multiple providers, session management
+    // Features: JWT/database sessions, OAuth providers, credentials auth
+    "next-auth": "^5.0.0-beta.25",
+
+    // Database ORM - Prisma
+    // Why: Type-safe queries, migrations, visual database browser
+    // Features: Auto-completion, relation handling, multiple DB support
+    "@prisma/client": "^6.1.0",
+
+    // Environment Variables - T3 Env
+    // Why: Type-safe env vars, runtime validation, Next.js optimized
+    // Features: Client/server separation, Zod validation
+    "@t3-oss/env-nextjs": "^0.11.1"
+  },
+  "devDependencies": {
+    // TypeScript
+    // Why: Type safety, better DX, catch errors early, better refactoring
+    "typescript": "^5.7.2",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.6",
+    "@types/react-dom": "^19.0.2",
+
+    // Linting - ESLint
+    // Why: Code quality, consistency, catch bugs early
+    "eslint": "^8.57.1",
+    "eslint-config-next": "16.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-tailwindcss": "^3.17.5",
+
+    // Code Formatting - Prettier
+    // Why: Consistent code style, automatic formatting, integrates everywhere
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.10",
+
+    // Testing - Jest & React Testing Library
+    // Why: Industry standard, great DX, comprehensive testing utilities
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/user-event": "^14.5.2",
+
+    // Git Hooks - Husky & lint-staged
+    // Why: Run checks before commit, ensure code quality, prevent bad commits
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+
+    // Database Development - Prisma CLI
+    // Why: Schema migrations, database seeding, Prisma Studio
+    "prisma": "^6.1.0",
+
+    // PostCSS (required for Tailwind)
+    "postcss": "^8.4.49",
+    "autoprefixer": "^10.4.20"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
+}

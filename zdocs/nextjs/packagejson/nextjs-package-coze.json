@@ -1,0 +1,82 @@
+{
+  "name": "nextjs-16-1-tech-stack",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  
+  // 🏗️ 核心框架
+  "dependencies": {
+    "next": "^16.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    
+    // 🎨 UI组件库选择
+    "@mui/material": "^6.0.0", // 企业级首选：MUI v6
+    "@emotion/react": "^11.13.0", // MUI的样式引擎
+    "@emotion/styled": "^11.13.0",
+    
+    // 🔄 状态管理
+    "@reduxjs/toolkit": "^2.2.0", // Redux Toolkit：简化版Redux
+    "react-redux": "^9.1.0",
+    
+    // 📡 API通信
+    "axios": "^1.7.0", // 替代fetch：自动转换JSON、拦截器支持
+    "react-query": "^3.39.0", // 数据预取、缓存、自动重试
+    
+    // 📊 数据处理
+    "lodash-es": "^4.17.21", // 模块化工具库
+    "date-fns": "^3.6.0", // 现代日期处理
+    
+    // 🔒 安全
+    "bcryptjs": "^2.4.3", // 密码哈希
+    "jsonwebtoken": "^9.0.2", // JWT认证
+    
+    // 📈 性能优化
+    "next-pwa": "^5.6.0", // PWA支持
+    "next-seo": "^6.5.0", // SEO管理
+    "next-sitemap": "^4.2.3" // 站点地图生成
+  },
+  
+  // 🛠️ 开发工具链
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    
+    // ✅ 类型检查
+    "typescript": "^5.3.0",
+    
+    // 🧪 测试框架
+    "jest": "^29.7.0",
+    "@testing-library/react": "^14.1.0",
+    
+    // 🎨 代码质量
+    "eslint": "^8.55.0",
+    "eslint-config-next": "^16.1.0",
+    "prettier": "^3.1.0",
+    
+    // 📦 构建优化
+    "webpack-bundle-analyzer": "^4.10.0",
+    
+    // 🔧 脚本
+    "husky": "^8.0.3", // Git钩子
+    "lint-staged": "^15.2.0" // 预提交检查
+  },
+  
+  // 🚀 项目脚本
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "postbuild": "next-sitemap",
+    "analyze": "cross-env ANALYZE=true next build"
+  },
+  
+  // 📝 项目元数据
+  "keywords": ["nextjs", "react", "typescript", "mui"],
+  "author": "Tech Stack Architect",
+  "license": "MIT"
+}
